@@ -228,6 +228,13 @@ section { padding-block: 72px 24px; scroll-margin-top: 70px; }
 .track i { display: block; height: 100%; width: 0; border-radius: 99px; background: var(--muted); transition: width 2.6s cubic-bezier(.4,0,.2,1); }
 .track i.fast { background: var(--signal); transition-duration: .5s; }
 .race-row em { font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); text-align: right; }
+.rtable { margin-top: 14px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; font-size: 13px; }
+.rtable > div { display: grid; grid-template-columns: minmax(0, 1fr) 4.5rem 5.5rem; gap: 8px; padding: 7px 12px; border-top: 1px solid var(--line); }
+.rtable > div:first-child { border-top: 0; }
+.rtable span:nth-child(n+2) { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.rtable .rh { background: var(--panel-2); font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.rtable .best { background: var(--signal-wash); font-weight: 600; }
+.rtable .best span:first-child::after { content: " ★"; color: var(--moon); }
 .router-foot { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
 
 /* ---------- other projects ---------- */
@@ -361,6 +368,29 @@ footer { padding-block: 10px 48px; font-family: var(--mono); font-size: 12px; co
 .hs-count .tr i { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--signal); }
 .parallax { will-change: transform; }
 
+
+/* ---------- the 698: a scroll-told story where every dot is one real document ---------- */
+.chapter { position: relative; height: 600vh; margin-top: 40px; }
+.dotcv { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 2; pointer-events: none; opacity: 0; transition: opacity .5s var(--ease); background: var(--paper); }
+.dotcv.on { opacity: 1; }
+.ch-stage { position: sticky; top: 0; height: 100vh; height: 100svh; z-index: 3; pointer-events: none; }
+.ch-cap { position: absolute; left: 0; top: 50%; translate: 0 -50%; width: min(24rem, 40%); }
+.ch-step { position: absolute; inset: auto 0 auto 0; top: 0; translate: 0 -50%; opacity: 0; transform: translateY(26px); filter: blur(6px); transition: opacity .6s var(--ease), transform .8s var(--ease), filter .6s var(--ease); }
+.ch-step.on { opacity: 1; transform: none; filter: none; }
+.ch-step .k { font-family: var(--mono); font-size: 12px; color: var(--signal); letter-spacing: .04em; }
+.ch-step h3 { font-size: clamp(26px, 3.2vw, 40px); line-height: 1.08; letter-spacing: -0.03em; margin-top: 10px; }
+.ch-step p { color: var(--ink-2); margin-top: 12px; font-size: 15.5px; }
+.ch-step p b { color: var(--ink); font-weight: 600; }
+.ch-count { position: absolute; left: 0; bottom: 34px; font-family: var(--mono); font-size: 12px; color: var(--muted); display: flex; gap: 14px; align-items: center; }
+.ch-count .ch-bar { width: 120px; height: 2px; background: var(--line); position: relative; overflow: hidden; border-radius: 2px; }
+.ch-count .ch-bar i { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--signal); }
+@media (max-width: 760px) {
+  .ch-cap { width: auto; right: 0; top: auto; bottom: 64px; translate: none; height: 13.5rem; }
+  .ch-step { top: auto; bottom: 0; translate: none; }
+  .ch-step h3 { font-size: 24px; } .ch-step p { font-size: 14.5px; }
+  .ch-count { bottom: 22px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
   .js .rv:not(.in) { transform: none; opacity: 1; }
@@ -433,7 +463,7 @@ footer { padding-block: 10px 48px; font-family: var(--mono); font-size: 12px; co
           <g class="node" data-n="client"><rect x="14" y="122" width="72" height="56" rx="10"/><text class="t" x="50" y="146" text-anchor="middle">Browser</text><text x="50" y="164" text-anchor="middle">3 roles</text></g>
           <g class="node" data-n="cdn"><rect x="164" y="122" width="82" height="56" rx="10"/><text class="t" x="205" y="146" text-anchor="middle">CloudFront</text><text x="205" y="164" text-anchor="middle">S3 site</text></g>
           <g class="node" data-n="auth"><rect x="304" y="22" width="82" height="40" rx="10"/><text class="t" x="345" y="47" text-anchor="middle">Cognito</text></g>
-          <g class="node" data-n="api"><rect x="304" y="120" width="82" height="60" rx="10"/><text class="t" x="345" y="144" text-anchor="middle">API + λ</text><text x="345" y="162" text-anchor="middle">34+ routes</text></g>
+          <g class="node" data-n="api"><rect x="304" y="120" width="82" height="60" rx="10"/><text class="t" x="345" y="144" text-anchor="middle">API + λ</text><text x="345" y="162" text-anchor="middle">37 routes</text></g>
           <g class="node" data-n="db"><rect x="450" y="48" width="96" height="44" rx="10"/><text class="t" x="498" y="68" text-anchor="middle">DynamoDB</text><text x="498" y="84" text-anchor="middle">single table</text></g>
           <g class="node" data-n="s3"><rect x="450" y="128" width="96" height="44" rx="10"/><text class="t" x="498" y="148" text-anchor="middle">S3</text><text x="498" y="164" text-anchor="middle">job photos</text></g>
           <g class="node" data-n="ses"><rect x="450" y="208" width="96" height="44" rx="10"/><text class="t" x="498" y="228" text-anchor="middle">SES / SNS</text><text x="498" y="244" text-anchor="middle">emails, alerts</text></g>
@@ -446,8 +476,8 @@ footer { padding-block: 10px 48px; font-family: var(--mono); font-size: 12px; co
     </div>
 
     <div class="nums rv parallax" data-speed="0.06" aria-label="Highlights">
-      <div class="num"><b><span data-count="34">34</span><small>+</small></b><span>API routes, role-secured, on Lambda</span></div>
-      <div class="num"><b><span data-count="86">86</span><small>×</small></b><span>faster retrieval routing in my MSc research</span></div>
+      <div class="num"><b><span data-count="37">37</span></b><span>API routes, role-secured, on Lambda</span></div>
+      <div class="num"><b><span data-count="86">86</span><small>×</small></b><span>less indexing time than always running RAPTOR, in my MSc research</span></div>
       <div class="num"><b><span data-count="10" data-to="10">10</span><small>–20 $</small></b><span>estimated monthly AWS cost for a whole company workflow</span></div>
       <div class="num"><b><span data-count="8.80" data-dec="2">8.80</span><small>/10</small></b><span>B.Tech CGPA, CSE (AI &amp; ML)</span></div>
     </div>
@@ -457,6 +487,21 @@ footer { padding-block: 10px 48px; font-family: var(--mono); font-size: 12px; co
       <p class="eyebrow">01 · Systems</p>
       <h2 class="h2 rv">A full workflow platform for a Dubai maintenance company</h2>
       <p class="lede rv">Lucky Moon Technical Services handled bookings over phone and WhatsApp. I designed and built one cloud system that carries a job from the customer's request to a paid invoice, with separate apps for the office, technicians and customers.</p>
+
+    <!-- story: systems -->
+    <div class="chapter" data-story="systems" aria-label="The Lucky Moon system as a story told in dots">
+      <div class="ch-stage">
+        <div class="ch-cap">
+          <div class="ch-step"><span class="k">Before</span><h3>Bookings lived in phone calls and WhatsApp.</h3><p>A Dubai maintenance company running every job by message. Nothing tied a request to its quote, its technician or its invoice.</p></div>
+          <div class="ch-step"><span class="k">One path</span><h3>Request to paid invoice, one record.</h3><p>Booking, quote, job, photos, invoice, payment. Each step moves the same booking forward and keeps its history.</p></div>
+          <div class="ch-step"><span class="k">Three apps, four roles</span><h3>The office, the technicians, the customers.</h3><p>One login with Cognito groups for <b>owner</b>, <b>admin</b>, <b>technician</b> and <b>customer</b>. Each person only sees what their role allows.</p></div>
+          <div class="ch-step"><span class="k">Each large dot is one API route</span><h3>37 routes, every one role-checked.</h3><p>Grouped by what they serve: jobs 11, bookings 10, invoices 6, settings 4, customers 3, me 2, technicians 1.</p></div>
+          <div class="ch-step"><span class="k">Watching and talking</span><h3>9 alarms. 9 customer emails.</h3><p>A CloudWatch alarm on each of the 8 functions plus API errors, and branded SES emails from sign-up codes to payment received.</p></div>
+          <div class="ch-step"><span class="k">Shipped</span><h3>Eight functions, one template.</h3><p>The whole back end is one AWS SAM template that deploys in a single command, estimated at <b>$10–20 a month</b> to run.</p></div>
+        </div>
+        <div class="ch-count" aria-hidden="true"><span class="ch-n">01 / 06</span><span class="ch-bar"><i></i></span></div>
+      </div>
+    </div>
 
       <article class="case wipe" data-skills="aws lambda apigateway dynamodb cognito sam s3 cloudfront ses nodejs typescript nextjs react playwright git cloudwatch">
         <div class="case-top">
@@ -483,31 +528,56 @@ footer { padding-block: 10px 48px; font-family: var(--mono); font-size: 12px; co
     <section id="research">
       <p class="eyebrow">02 · Research</p>
       <h2 class="h2 rv">Choosing the right retrieval method, per document</h2>
+    <!-- story: research -->
+    <div class="chapter" data-story="research" aria-label="The research as a story: each dot is one real document from the dissertation">
+      <div class="ch-stage">
+        <div class="ch-cap" id="chCap">
+          <div class="ch-step"><span class="k">Interlude · every dot is a real document</span><h3>698 legal documents.</h3><p>Non-disclosure agreements, commercial contracts, merger agreements and privacy policies from the LegalBench-RAG benchmark. This is where my MSc started.</p></div>
+          <div class="ch-step"><span class="k">Four sources, four shapes</span><h3>They are not built alike.</h3><p><b>CUAD 462</b>, <b>MAUD 134</b>, <b>ContractNLI 95</b>, <b>PrivacyQA 7</b>. MAUD runs longest and is densest with cross-references; ContractNLI is the shortest.</p></div>
+          <div class="ch-step"><span class="k">Stratified by length</span><h3>186 documents, every method run on each.</h3><p>ContractNLI and PrivacyQA kept in full, CUAD and MAUD sampled across length quartiles with a fixed seed, checked against the full population.</p></div>
+          <div class="ch-step"><span class="k">Document-level wins</span><h3>No method wins everywhere.</h3><p>Each dot moves to the method with the highest F1 on that document. Dense wins most often, but BM25 leads on ContractNLI and RAPTOR still takes 36.</p></div>
+          <div class="ch-step"><span class="k">Indexing time per document</span><h3>And the clever methods are expensive.</h3><p>Always running RAPTOR costs <b>318.25 s</b> per document. My random-forest router, choosing per document before any indexing, costs <b>3.70 s</b>. Each dot is the same slice of time.</p></div>
+          <div class="ch-step"><span class="k">The result</span><h3>One decision per document.</h3><p>Highest F1 of every strategy on unseen documents (<b>0.0753</b>), about <b>86×</b> less indexing than always-RAPTOR, ahead of RAPTOR in all five folds (p = 0.030).</p></div>
+        </div>
+        <div class="ch-count" aria-hidden="true"><span class="ch-n">01 / 06</span><span class="ch-bar"><i></i></span></div>
+      </div>
+    </div>
+
       <div class="research research-wrap" data-skills="python pandas numpy scikit-learn llama ollama sentence-transformers rag llms">
         <div class="rv">
           <h3>Structure-aware routing for legal RAG</h3>
-          <p class="meta">MSc dissertation · Brunel University London</p>
+          <p class="meta">MSc dissertation · Brunel University London · supervised by Prof. Yongmin Li</p>
           <ul>
-            <li>Compared five retrieval methods for retrieval-augmented generation on legal documents.</li>
-            <li>Built a machine-learning router that predicts the best method for each document from its structure.</li>
-            <li>Matched the best single method's answer quality while cutting processing time by around 86×.</li>
-            <li>Ran entirely on local, open-source models: Llama 3.1 through Ollama, with Sentence Transformers.</li>
+            <li>Analysed the structure of 698 legal documents from four LegalBench-RAG datasets: ContractNLI, CUAD, MAUD and PrivacyQA.</li>
+            <li>Compared five retrieval methods (BM25, dense, hybrid, an adapted RAPTOR and a lightweight GraphRAG) over 1,957 queries, scored with precision, recall and F1 against the official answer locations.</li>
+            <li>Found no single method best everywhere, and that the advanced methods cost far more to index. Trained a random-forest router that picks a method per document from five cheap structural features, before any indexing.</li>
+            <li>On unseen documents the router had the highest F1 of every strategy, with about 86× less indexing time than always running RAPTOR. It beat RAPTOR in all five cross-validation folds (permutation test p = 0.030).</li>
           </ul>
-          <div class="stack" style="padding:16px 0 0"><span class="chip">Python</span><span class="chip">scikit-learn</span><span class="chip">pandas</span><span class="chip">NumPy</span><span class="chip">Llama 3.1</span><span class="chip">Ollama</span><span class="chip">Sentence Transformers</span></div>
+          <div class="stack" style="padding:16px 0 0"><span class="chip">Python</span><span class="chip">scikit-learn</span><span class="chip">pandas</span><span class="chip">NumPy</span><span class="chip">Llama 3.1 8B</span><span class="chip">Ollama</span><span class="chip">all-MiniLM-L6-v2</span><span class="chip">LegalBench-RAG</span></div>
         </div>
-        <figure class="router rv parallax" data-speed="-0.05" style="margin:0" aria-label="Animation: documents arrive, the router sends each to one retrieval method; a race shows running all methods takes far longer than routing">
+        <figure class="router rv parallax" data-speed="-0.05" style="margin:0" aria-label="Animation: each legal document goes to the random-forest router, which picks one of five retrieval methods. Below, indexing time per document for always using RAPTOR against the router, and the held-out results table">
           <svg viewBox="0 0 420 190" aria-hidden="true">
-            <text class="lbl" x="6" y="14">documents</text><text class="lbl" x="150" y="14">router</text><text class="lbl" x="268" y="14">retrieval method</text>
-            <rect x="140" y="70" width="60" height="50" rx="10" fill="var(--panel-2)" stroke="var(--line)"/>
-            <text x="170" y="99" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--ink)">ML</text>
-            <g id="lanes"></g>
+            <text class="lbl" x="6" y="14">legal documents</text><text class="lbl" x="150" y="14">router</text><text class="lbl" x="268" y="14">retrieval method</text>
             <g id="docs"></g>
+            <rect x="140" y="70" width="60" height="50" rx="10" fill="var(--panel-2)" stroke="var(--line)"/>
+            <text x="170" y="93" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--ink)">random</text><text x="170" y="107" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--ink)">forest</text>
+            <g id="lanes"></g>
           </svg>
+          <p class="mono" style="color:var(--muted);margin-top:10px">Indexing time per document, held-out set</p>
           <div class="race" aria-hidden="true">
-            <div class="race-row"><span>Run all 5 methods</span><div class="track"><i id="slow"></i></div><em id="slowT">—</em></div>
-            <div class="race-row"><span>Router picks 1</span><div class="track"><i id="fast" class="fast"></i></div><em id="fastT">—</em></div>
+            <div class="race-row"><span>Always RAPTOR</span><div class="track"><i id="slow"></i></div><em id="slowT">—</em></div>
+            <div class="race-row"><span>Router</span><div class="track"><i id="fast" class="fast"></i></div><em id="fastT">—</em></div>
           </div>
-          <div class="router-foot"><span>Same answer quality, about 86× less processing time.</span><button class="sk-hint" id="replay" type="button" style="border:0;background:none;cursor:pointer;color:var(--signal);padding:0">Replay</button></div>
+          <div class="rtable" role="table" aria-label="Held-out results on 47 unseen documents">
+            <div role="row" class="rh"><span role="columnheader">Strategy</span><span role="columnheader">F1</span><span role="columnheader">Index s/doc</span></div>
+            <div role="row" class="best"><span role="cell">Random-forest router</span><span role="cell">0.0753</span><span role="cell">3.70</span></div>
+            <div role="row"><span role="cell">Dense</span><span role="cell">0.0745</span><span role="cell">0.95</span></div>
+            <div role="row"><span role="cell">Hybrid</span><span role="cell">0.0706</span><span role="cell">0.95</span></div>
+            <div role="row"><span role="cell">RAPTOR (adapted)</span><span role="cell">0.0654</span><span role="cell">318.25</span></div>
+            <div role="row"><span role="cell">BM25</span><span role="cell">0.0652</span><span role="cell">0.95</span></div>
+            <div role="row"><span role="cell">GraphRAG (lightweight)</span><span role="cell">0.0537</span><span role="cell">197.33</span></div>
+          </div>
+          <div class="router-foot"><span>47 unseen documents. Oracle (always the best method) F1: 0.0867.</span><button class="sk-hint" id="replay" type="button" style="border:0;background:none;cursor:pointer;color:var(--signal);padding:0">Replay</button></div>
         </figure>
       </div>
     </section>
@@ -771,7 +841,7 @@ COUNTER       INVOICE#2026 <span class="c">← atomic numbers</span></pre></div>
   showPane("what");
 
   // research router animation
-  const METHODS = ["Fixed chunks", "Semantic", "Section-aware", "Hierarchical", "Hybrid"];
+  const METHODS = ["BM25", "Dense", "Hybrid", "RAPTOR (adapted)", "GraphRAG (lite)"];
   const lanes = $("#lanes");
   METHODS.forEach((m, i) => {
     const y = 26 + i * 30;
@@ -787,9 +857,9 @@ COUNTER       INVOICE#2026 <span class="c">← atomic numbers</span></pre></div>
     $("#slowT").textContent = "—"; $("#fastT").textContent = "—";
     void slow.offsetWidth; slow.style.transition = ""; fast.style.transition = "";
     setTimeout(() => { slow.style.width = "100%"; fast.style.width = "1.2%"; }, 60);
-    setTimeout(() => { if (my === runId) $("#fastT").textContent = "1×"; }, 600);
-    setTimeout(() => { if (my === runId) $("#slowT").textContent = "~86×"; }, 2700);
-    const picks = [2, 0, 3, 2, 4, 1, 2];
+    setTimeout(() => { if (my === runId) $("#fastT").textContent = "3.70 s"; }, 600);
+    setTimeout(() => { if (my === runId) $("#slowT").textContent = "318 s"; }, 2700);
+    const picks = [1, 0, 3, 1, 2, 1, 4];
     for (let d = 0; d < picks.length && my === runId; d++) {
       const y0 = 40 + (d % 4) * 26;
       const el = document.createElementNS("http://www.w3.org/2000/svg", "rect");
@@ -945,6 +1015,161 @@ COUNTER       INVOICE#2026 <span class="c">← atomic numbers</span></pre></div>
   document.fonts?.ready.then(() => { sizeHS(); scenes(); });
   sizeHS(); scenes();
 
+
+  // ---------- dot stories: each section told in dots, from real numbers ----------
+  const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const vogel = (n, cx, cy, rad) => Array.from({ length: n }, (_, i) => { const r = rad * Math.sqrt((i + .5) / n), t = i * 2.39996; return [cx + r * Math.cos(t), cy + r * Math.sin(t)]; });
+  const easeIO = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const mix = (a, b, t) => a + (b - a) * t;
+  const hide = (q) => ({ x: q.x, y: q.y, a: 0, c: q.c, r: q.r });
+  let ptrX = -9999, ptrY = -9999;
+  addEventListener("pointermove", (e) => { ptrX = e.clientX; ptrY = e.clientY; }, { passive: true });
+
+  function story(el, N, build) {
+    const cap = $(".ch-cap", el), steps = $$(".ch-step", el), S = steps.length;
+    const num = $(".ch-n", el), bar = $(".ch-bar i", el);
+    el.style.height = `${S * 92 + 100}vh`;
+    const cv = document.createElement("canvas"); cv.className = "dotcv"; cv.setAttribute("aria-hidden", "true"); document.body.prepend(cv);
+    const ctx = cv.getContext("2d");
+    const P = Array.from({ length: N }, (_, i) => ({ i, d: Math.random(), ph: Math.random(), x: 0, y: 0, a: 0, r: 1 }));
+    let W, H, dpr, B, T, L, END, col, ready = false, active = false, shown = -1, bigR = 0;
+
+    function layout() {
+      dpr = Math.min(devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight; cv.width = W * dpr; cv.height = H * dpr;
+      const c = cap.getBoundingClientRect(), mob = W <= 760;
+      B = mob ? { x: 20, y: 80, w: W - 40, h: H - 80 - 13.5 * 16 - 100 } : { x: c.right + 56, y: H * .16, w: W - c.right - 56 - 40, h: H * .68 };
+      B.w = Math.max(B.w, 160); B.h = Math.max(B.h, 160);
+      const dot = Math.max(1.6, Math.min(3.2, Math.sqrt((B.w * B.h) / Math.max(N, 300)) * .2));
+      col = { gold: css("--moon"), sig: css("--signal"), ink: css("--ink"), mut: css("--muted"), line: css("--line") };
+      ({ T, L, END } = build({ B, dot, col, mob, P, N }));
+      if (!ready) { const t0 = get(0, 0); P.forEach((p) => Object.assign(p, { x: t0[p.i].x, y: t0[p.i].y, r: t0[p.i].r })); ready = true; }
+    }
+    const get = (s, now) => (typeof T[s] === "function" ? T[s](now) : T[s]);
+
+    function frame(now) {
+      requestAnimationFrame(frame);
+      if (!ready) return;
+      const r = el.getBoundingClientRect(), span = r.height - H, on = r.top < H * .35 && r.bottom > H * .65;
+      if (on !== active) { active = on; cv.classList.toggle("on", on); }
+      if (!on && !cv.matches(".on")) { if (r.bottom < 0 || r.top > H) return; }
+      const prog = Math.min(Math.max(-r.top / span, 0), 1), s = prog * (S - 1), si = Math.min(Math.floor(s), S - 2), f = s - si;
+      const cur = Math.min(Math.round(s - .15), S - 1);
+      if (cur !== shown) { shown = cur; steps.forEach((x, i) => x.classList.toggle("on", i === Math.max(cur, 0))); num.textContent = `${String(Math.max(cur, 0) + 1).padStart(2, "0")} / ${String(S).padStart(2, "0")}`; }
+      bar.style.width = prog * 100 + "%";
+      if (!active && !cv.classList.contains("on")) return;
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+      const A = get(si, now), Z = get(si + 1, now);
+      for (const p of P) {
+        const t = reduce ? (f > .5 ? 1 : 0) : easeIO(Math.min(Math.max((f - .25 - p.d * .3) / .4, 0), 1));
+        const a = A[p.i], b = Z[p.i];
+        let tx = mix(a.x, b.x, t), ty = mix(a.y, b.y, t);
+        const dx = tx - ptrX, dy = ty - ptrY, dd = dx * dx + dy * dy;
+        if (dd < 8100 && !reduce) { const k = (1 - Math.sqrt(dd) / 90) * 26 / Math.max(Math.sqrt(dd), 1); tx += dx * k; ty += dy * k; }
+        const sp = reduce ? 1 : .2;
+        p.x += (tx - p.x) * sp; p.y += (ty - p.y) * sp; p.a += (mix(a.a, b.a, t) - p.a) * sp; p.r = mix(a.r, b.r, t);
+        if (p.a < .02) continue;
+        ctx.globalAlpha = Math.min(p.a, 1); ctx.fillStyle = t < .5 ? a.c : b.c;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.2832); ctx.fill();
+      }
+      if (END) {
+        const target = si === S - 2 ? Math.max(0, (f - .55) / .45) : 0;
+        bigR += (easeIO(Math.min(target, 1)) * END.r - bigR) * .15;
+        if (bigR > .5) { ctx.globalAlpha = 1; ctx.fillStyle = col.gold; ctx.beginPath(); ctx.arc(END.x, END.y, bigR, 0, 6.2832); ctx.fill(); }
+      }
+      const LL = L[f < .5 ? si : si + 1] || [], la = f < .5 ? 1 - Math.min(Math.max((f - .1) / .2, 0), 1) : Math.min(Math.max((f - .7) / .2, 0), 1);
+      ctx.globalAlpha = la; ctx.textBaseline = "alphabetic";
+      for (const [nm, v, x, y, al] of LL) {
+        ctx.textAlign = al === "l" ? "left" : al === "r" ? "right" : "center";
+        ctx.font = `500 12px "Geist Mono", monospace`; ctx.fillStyle = col.mut; ctx.fillText(nm, x, y);
+        if (!v) continue;
+        ctx.font = `700 ${al === "l" || al === "s" ? 12 : 15}px "Geist Mono", monospace`; ctx.fillStyle = col.ink;
+        if (al === "l") ctx.fillText(v, x + ctx.measureText(nm).width + 60, y); else ctx.fillText(v, x, y + (al === "s" ? 17 : 19));
+      }
+      ctx.globalAlpha = 1;
+    }
+    const safe = () => { try { layout(); } catch (err) { ready = false; console.warn("dot story layout", err); } };
+    (document.fonts?.ready ?? Promise.resolve()).then(() => { safe(); requestAnimationFrame(frame); });
+    let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(safe, 150); });
+    new MutationObserver(() => setTimeout(safe, 50)).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  }
+
+  // 02 · Research: 698 real documents (dissertation tables 3.1 and 4.4)
+  const SUB = [["ContractNLI", 95], ["CUAD", 462], ["MAUD", 134], ["PrivacyQA", 7]], KEEP = [95, 60, 25, 6];
+  const WINS = [[30, 18, 22, 17, 8], [5, 32, 2, 13, 8], [3, 14, 1, 5, 2], [0, 4, 0, 1, 1]];
+  const META = (() => { const m = []; SUB.forEach(([, n], si) => { const w = WINS[si].flatMap((c, k) => Array(c).fill(k)); for (let j = 0; j < n; j++) m.push({ sub: si, j, keep: j < KEEP[si], win: j < KEEP[si] ? w[j] : -1 }); }); return m; })();
+  const stories = {
+    research: [698, ({ B, dot, col, mob, P }) => {
+      const tone = [col.gold, col.sig, col.ink, col.mut], T = [], L = [];
+      const oc = document.createElement("canvas"), ow = Math.round(B.w), oh = Math.round(B.h); oc.width = ow; oc.height = oh;
+      const ox = oc.getContext("2d"); let fs = oh * .9;
+      ox.font = `800 ${fs}px "Bricolage Grotesque", sans-serif`; const tw = ox.measureText("698").width; if (tw > ow * .95) fs *= ow * .95 / tw;
+      ox.font = `800 ${fs}px "Bricolage Grotesque", sans-serif`; ox.textAlign = "center"; ox.textBaseline = "middle"; ox.fillText("698", ow / 2, oh / 2);
+      const px = ox.getImageData(0, 0, ow, oh).data, cand = [], step = Math.max(2, Math.round(dot * 1.6));
+      for (let y = 0; y < oh; y += step) for (let x = 0; x < ow; x += step) if (px[(y * ow + x) * 4 + 3] > 128) cand.push([B.x + x, B.y + y]);
+      if (cand.length < 50) vogel(698, B.x + B.w / 2, B.y + B.h / 2, Math.min(B.w, B.h) * .45).forEach((q) => cand.push(q));
+      for (let i = cand.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [cand[i], cand[j]] = [cand[j], cand[i]]; }
+      T[0] = P.map((p, i) => ({ x: cand[i % cand.length][0] + (i >= cand.length ? Math.random() * step : 0), y: cand[i % cand.length][1], a: 1, c: col.gold, r: dot }));
+      const rad = SUB.map(([, n]) => Math.sqrt(n)), gap = mob ? 34 : 40, sum = rad.reduce((a, b) => a + b, 0) * 2;
+      const sc = Math.min((B.w * .96 - 3 * gap) / sum, B.h * .34 / rad[1]), tot = sum * sc + 3 * gap;
+      let cx = B.x + (B.w - tot) / 2; const cy = B.y + B.h * .46, cen = [];
+      [1, 2, 0, 3].forEach((si) => { const r = rad[si] * sc; cen[si] = [cx + r, cy, r]; cx += 2 * r + gap; });
+      const pos1 = SUB.map(([, n], si) => vogel(n, cen[si][0], cen[si][1], cen[si][2] * .98));
+      T[1] = P.map((p) => { const m = META[p.i]; return { x: pos1[m.sub][m.j][0], y: pos1[m.sub][m.j][1], a: 1, c: tone[m.sub], r: dot }; });
+      L[1] = SUB.map(([nm, n], si) => [nm, String(n), cen[si][0], cy + Math.max(cen[si][2], 14) + 26]);
+      const pos2 = SUB.map((_, si) => vogel(KEEP[si], cen[si][0], cen[si][1], cen[si][2] * Math.sqrt(KEEP[si] / SUB[si][1]) * .98));
+      T[2] = P.map((p) => { const m = META[p.i]; return m.keep ? { x: pos2[m.sub][m.j][0], y: pos2[m.sub][m.j][1], a: 1, c: tone[m.sub], r: dot * 1.25 } : { ...T[1][p.i], a: .1 }; });
+      L[2] = SUB.map(([nm], si) => [nm, String(KEEP[si]), cen[si][0], L[1][si][3]]);
+      const g = Math.max(dot * 3.1, 6), cols = 6, laneW = B.w / 5, base = B.y + B.h * .82, wc = [0, 0, 0, 0, 0], t3 = {};
+      P.filter((p) => META[p.i].keep).sort((a, b) => META[a.i].sub - META[b.i].sub).forEach((p) => { const m = META[p.i].win, n = wc[m]++; t3[p.i] = { x: B.x + laneW * (m + .5) + ((n % cols) - (cols - 1) / 2) * g, y: base - Math.floor(n / cols) * g, a: 1, c: tone[META[p.i].sub], r: dot * 1.25 }; });
+      T[3] = P.map((p) => t3[p.i] ?? { x: B.x + Math.random() * B.w, y: B.y + B.h + 60, a: 0, c: col.mut, r: dot });
+      L[3] = ["BM25", "Dense", "Hybrid", "RAPTOR", "GraphRAG"].map((m, i) => [m, String(wc[i]), B.x + laneW * (i + .5), base + 30]);
+      const rows = 8, g4 = Math.max(Math.min((B.w - 10) / Math.ceil(688 / rows), (B.h * .22) / rows), 3), y1 = B.y + B.h * .26, y2 = B.y + B.h * .66;
+      T[4] = P.map((p) => { const i = p.i;
+        if (i < 688) return { x: B.x + Math.floor(i / rows) * g4, y: y1 + (i % rows) * g4, a: 1, c: col.mut, r: Math.max(1.2, g4 * .34) };
+        if (i < 696) { const q = i - 688; return { x: B.x + Math.floor(q / rows) * g4, y: y2 + (q % rows) * g4, a: 1, c: col.gold, r: Math.max(1.6, g4 * .42) }; }
+        return { x: B.x, y: y2, a: 0, c: col.gold, r: 1 }; });
+      L[4] = [["Always RAPTOR", "318.25 s / doc", B.x, y1 - 16, "l"], ["Router", "3.70 s / doc", B.x, y2 - 16, "l"]];
+      const fx = B.x + B.w / 2, fy = B.y + B.h * .5;
+      T[5] = P.map(() => ({ x: fx + (Math.random() - .5) * 2, y: fy + (Math.random() - .5) * 2, a: 0, c: col.gold, r: dot }));
+      return { T, L, END: { x: fx, y: fy, r: Math.min(B.w, B.h) * .16 } };
+    }],
+
+    // 01 · Systems: 37 real routes (template.yaml), 9 alarms, 9 customer email templates
+    systems: [240, ({ B, dot, col, mob, P, N }) => {
+      const T = [], L = [], cy = B.y + B.h * .5, R = dot * 1.3;
+      const home = P.map(() => ({ x: B.x + Math.random() * B.w, y: B.y + B.h * (.12 + Math.random() * .76) }));
+      T[0] = (now) => P.map((p, i) => ({ x: home[i].x + Math.sin(now / 900 + p.ph * 6.28) * 14, y: home[i].y + Math.cos(now / 1100 + p.ph * 9) * 10, a: .35 + p.ph * .65, c: p.ph > .8 ? col.ink : col.mut, r: R }));
+      const ST = ["Booking", "Quote", "Job", "Photos", "Invoice", "Paid"], x0 = B.x + 20, x1 = B.x + B.w - 20;
+      const sx = ST.map((_, k) => mix(x0, x1, k / 5));
+      T[1] = (now) => P.map((p, i) => {
+        if (i < 6) return { x: sx[i], y: cy, a: 1, c: col.gold, r: dot * 4.2 };
+        const u = (p.ph + now * .00006) % 1;
+        return { x: mix(x0, x1, u), y: cy + (p.d - .5) * 26 * Math.sin(u * Math.PI), a: .5 + .5 * Math.sin(u * Math.PI), c: u > .97 ? col.gold : col.sig, r: R };
+      });
+      L[1] = ST.map((s, k) => [s, "", sx[k], cy + (mob ? 34 : 40), "c"]);
+      const APPS = [["Office", "owner · admin"], ["Technician", "jobs · photos"], ["Customer", "book · pay"]];
+      const ar = Math.min(B.w / 7.2, B.h * .26), ax = [0, 1, 2].map((k) => B.x + B.w * (k + .5) / 3), pos = [0, 1, 2].map((k) => vogel(N / 3, ax[k], cy - 10, ar));
+      T[2] = P.map((p, i) => ({ x: pos[i % 3][Math.floor(i / 3)][0], y: pos[i % 3][Math.floor(i / 3)][1], a: 1, c: [col.ink, col.sig, col.gold][i % 3], r: R }));
+      L[2] = APPS.map(([a, b], k) => [a, b, ax[k], cy + ar + 26, "s"]);
+      const RT = [["/jobs", 11], ["/bookings", 10], ["/invoices", 6], ["/settings", 4], ["/customers", 3], ["/me", 2], ["/technicians", 1]];
+      const big = Math.max(dot * 2.6, 5), gy = big * 2.9, lw = B.w / 7, base = B.y + B.h * .78, t3 = []; let k = 0;
+      RT.forEach(([, n], c) => { for (let j = 0; j < n; j++) t3[k++] = { x: B.x + lw * (c + .5), y: base - j * gy, a: 1, c: c === 0 ? col.gold : col.sig, r: big }; });
+      T[3] = P.map((p, i) => t3[i] ?? hide(T[2][i]));
+      L[3] = RT.map(([nm, n], c) => [mob ? nm.replace("/technicians", "/tech").replace("/customers", "/cust").replace("/bookings", "/book").replace("/invoices", "/inv").replace("/settings", "/set") : nm, String(n), B.x + lw * (c + .5), base + 30]);
+      const g4 = Math.max(big * 3.4, 14), cxA = B.x + B.w * .27, cxB = B.x + B.w * .73, t4 = [];
+      for (let j = 0; j < 9; j++) t4[j] = { x: cxA + ((j % 3) - 1) * g4, y: cy - 20 + (Math.floor(j / 3) - 1) * g4, a: 1, c: col.ink, r: big };
+      for (let j = 0; j < 9; j++) t4[9 + j] = { x: cxB + ((j % 3) - 1) * g4, y: cy - 20 + (Math.floor(j / 3) - 1) * g4, a: 1, c: col.gold, r: big };
+      T[4] = P.map((p, i) => t4[i] ?? hide(T[3][i]));
+      L[4] = [["CloudWatch alarms", "9", cxA, cy - 20 + g4 + 40, "c"], ["Customer emails", "9", cxB, cy - 20 + g4 + 40, "c"]];
+      const fx = B.x + B.w / 2;
+      T[5] = P.map(() => ({ x: fx, y: cy, a: 0, c: col.gold, r: dot }));
+      return { T, L, END: { x: fx, y: cy, r: Math.min(B.w, B.h) * .16 } };
+    }],
+
+  };
+  $$(".chapter[data-story]").forEach((el) => { const s = stories[el.dataset.story]; if (s) story(el, s[0], s[1]); });
+
   // copy email
   $("#copyMail").addEventListener("click", async () => {
     const mail = $("#email").textContent;
@@ -955,7 +1180,7 @@ COUNTER       INVOICE#2026 <span class="c">← atomic numbers</span></pre></div>
   // command palette
   const CMDS = [
     ["Intro", "#intro", "section"], ["Lucky Moon workflow system", "#work", "aws case study"], ["Architecture", "#work", "case study", () => showPane("how")],
-    ["Engineering decisions", "#work", "case study", () => showPane("why")], ["Legal RAG router", "#research", "msc research"], ["Offline LLM assistant", "#projects", "project"],
+    ["Engineering decisions", "#work", "case study", () => showPane("why")], ["Legal RAG router (LegalBench-RAG)", "#research", "msc research bm25 dense hybrid raptor graphrag"], ["Offline LLM assistant", "#projects", "project"],
     ["Media processing app", "#projects", "project"], ["Civic reporting platform", "#projects", "project"], ["Skills", "#skills", "section"],
     ["Education and experience", "#path", "section"], ["Contact", "#contact", "section"], ["Copy email address", null, "action", () => $("#copyMail").click()],
     ["Switch theme", null, "action", () => $("#theme").click()], ["GitHub profile", "https://github.com/Akilan3263", "link"], ["LinkedIn profile", "https://www.linkedin.com/in/akilan-jd/", "link"],
